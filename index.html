@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zain AI Studio</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="layout">
+<aside><h2>✦ ZAIN AI STUDIO</h2><p>استوديو صناعة المحتوى</p><nav><a href="#story">🎬 القصص</a><a href="#characters">👤 الشخصيات</a><a href="#scenes">🎥 المشاهد</a><a href="#export">📦 التصدير</a></nav><small>نسخة تجريبية 0.1 — إعداد برومبتات فقط، لا تولد فيديو فعلياً.</small></aside>
+<main>
+<header><span>CREATIVE WORKSPACE</span><h1>حوّل فكرتك إلى مشاهد سينمائية</h1><p>أنشئ مخطط قصة عراقية مع وصف الشخصيات والحوار وحركات الكاميرا والمؤثرات.</p></header>
+<section id="story"><h2>01 — إعداد القصة</h2><div class="grid">
+<label>عنوان القصة<input id="title" value="اليتيم ورغيف الخبز"></label>
+<label>نوع المحتوى<select id="genre"><option>دراما عراقية</option><option>غموض وتشويق</option><option>ريلز تقني</option><option>إعلان منتج</option></select></label>
+<label>عدد المشاهد<select id="count"><option>3</option><option selected>4</option><option>5</option><option>6</option><option>8</option></select></label>
+<label>مدة المشهد<select id="duration"><option>5</option><option selected>8</option><option>10</option></select></label>
+<label>لهجة الحوار<select id="dialect"><option>اللهجة العراقية البغدادية الطبيعية</option><option>العربية الفصحى</option><option>بدون حوار</option></select></label>
+<label>الأبعاد<select id="ratio"><option>9:16</option><option>16:9</option><option>1:1</option></select></label>
+</div>
+<label>فكرة القصة<textarea id="idea" rows="3">طفل عراقي يتيم يعيش في بيت عمه، يشعر بالظلم والوحدة، ثم تكتشف جدته الحقيقة وتأخذه إلى منزلها. نهاية مؤثرة وإنسانية.</textarea></label>
+<div class="buttons"><button id="build">✦ إنشاء المشاهد</button><button class="secondary" id="save">حفظ المسودة</button><button class="secondary" id="reset">مسح المسودة</button></div><p id="notice" role="status"></p>
+</section>
+<section id="characters"><h2>02 — دليل الشخصيات</h2><label>الأوصاف الثابتة<textarea id="cast" rows="6">علي: طفل عراقي بعمر 10 سنوات، عينان بنيتان، شعر أسود قصير، سترة بنية قديمة وبنطال داكن.
+زوجة العم: امرأة عراقية في الأربعين، ملابس وحجاب داكنان، ملامح صارمة.
+العم: رجل عراقي في الخامسة والأربعين، شارب وشعر قصير.
+الجدة: امرأة عراقية بعمر 65 سنة، عباءة سوداء تقليدية، ملامح حنونة.</textarea></label><p>كرر وصف الشخصيات واستخدم صوراً مرجعية في منصة التوليد لتحسين اتساق الملامح.</p></section>
+<section id="scenes"><h2>03 — المشاهد <span id="summary"></span></h2><div id="sceneList"></div></section>
+<section id="export"><h2>04 — نسخ وتصدير</h2><div class="buttons"><button id="copy">نسخ كل البرومبتات</button><button class="secondary" id="txt">تنزيل TXT</button><button class="secondary" id="json">تنزيل JSON</button><label class="import">استيراد JSON<input type="file" id="upload" accept=".json,application/json" hidden></label></div><p>حسابات التوليد السحابي ليست متصلة بهذا النموذج.</p></section>
+<footer>© Zain AI Studio — MVP 0.1</footer>
+</main>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>
