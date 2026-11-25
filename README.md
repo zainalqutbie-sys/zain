@@ -1,27 +1,36 @@
 # Zain AI Studio
 
-Arabic-first browser-based planner for Iraqi stories, technology reels and ads.
+واجهة عربية لتخطيط القصص العراقية والريلز التقنية والإعلانات. جهّز فكرة القصة والشخصيات، وعدّل المشاهد، ثم صدّر برومبتات الفيديو مع توجيهات الكاميرا والحوار والصوت.
 
-## Version 0.1
-- Story outline, character bible and scene planner
-- Detailed editable video prompts with camera, dialogue and sound
-- Export/import JSON and copy all prompts
-- Works offline without a GPU, API key, subscription or installation
+## التشغيل
 
-This prototype **does not generate actual AI video or voices**. It generates editable prompts using built-in templates. Video providers and cloud GPU are future integrations.
+نزّل [ملفات المشروع بصيغة ZIP](https://github.com/zainalqutbie-sys/zain/archive/refs/heads/main.zip) وفك الضغط، ثم افتح `index.html` بالمتصفح. يعمل المخطط محلياً وبدون تثبيت أو مفتاح API أو كرت شاشة منفصل.
 
-## Use
-Download index.html, styles.css and app.js into one folder and double-click index.html.
+## طريقة الاستخدام
 
-## Privacy
-Drafts remain in browser localStorage until cleared. Do not use shared computers for confidential projects. Export JSON backups. Never commit API tokens or client secrets.
+1. اكتب فكرة القصة وأوصاف الشخصيات، واختر اللهجة ونسبة الأبعاد ومدة اللقطة.
+2. أنشئ قوالب المشاهد وعدّل وصف كل لقطة والحوار داخلها.
+3. انسخ برومبت كل مشهد أو نزّل البرومبتات مجتمعة بصيغة TXT. استخدمها في أداة توليد الفيديو التي تختارها.
+4. احفظ المسودة في متصفحك أو صدّر نسخة JSON لاستعادتها على جهاز آخر.
 
-This repository is currently public: change visibility in GitHub Settings > General > Danger Zone if you want it private.
+الإصدار الحالي 0.1 يجهّز البرومبتات من قوالب قابلة للتعديل. توليد الفيديو والصوت يتم في أداة خارجية.
 
-## Roadmap
-1. Character reference images and continuity checklist.
-2. Clip review and timelines.
-3. Secure provider integration with visible pricing.
-4. Video assembly and rendering.
+## ملفات المشروع
 
-MIT License.
+| الملف | الوظيفة |
+| --- | --- |
+| [index.html](index.html) | واجهة الاستوديو |
+| [styles.css](styles.css) | تصميم الواجهة |
+| [app.js](app.js) | إعداد المشاهد والبرومبتات وحفظ المسودات وتصديرها |
+| [LICENSE](LICENSE) | ترخيص MIT |
+
+## حفظ المسودات
+
+الحفظ المحلي مرتبط بالمتصفح والجهاز. عند العمل على جهاز مشترك، صدّر نسخة JSON وتجنّب حفظ المشاريع الحساسة عليه. خزّن مفاتيح الخدمات وملفات العملاء خارج المستودع العام.
+
+## خارطة التطوير
+
+- صور مرجعية للشخصيات وقائمة لمراجعة اتساقها بين المشاهد.
+- مراجعة اللقطات وترتيبها على خط زمني.
+- ربط أدوات التوليد مع عرض تكلفتها.
+- تجميع الفيديو وتصديره.
