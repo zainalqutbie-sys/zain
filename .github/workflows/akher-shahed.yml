@@ -31,7 +31,7 @@ jobs:
           ]
           font = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
           display = ImageFont.truetype(font, 64)
-          body = ImageFont.truetype(font, 41)
+          body = ImageFont.truetype(font, 35)
           small = ImageFont.truetype(font, 29)
           timeline = []
           for index, (title, lines, duration) in enumerate(scenes):
