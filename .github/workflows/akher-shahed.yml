@@ -1,0 +1,67 @@
+name: Render Akher Shahed
+on:
+  push:
+    paths:
+      - '.github/workflows/akher-shahed.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install rendering tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core python3-pil
+      - name: Render the story
+        run: |
+          mkdir -p output
+          /usr/bin/python3 - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont, features
+          from pathlib import Path
+
+          assert features.check("raqm"), "Arabic text shaping requires libraqm"
+          scenes = [
+              ("مفتاح أبوي", ["آخر شاهد"], 4),
+              ("باب مسدود", ["من مات أبوه، عاش علي ببيت عمّه.", "كل يوم يسأل عن شنطة أبوه.", "ومرت عمّه تكله: هاي راحت."], 7),
+              ("المفتاح", ["علي بقى مخبّي مفتاح الشنطة.", "يوم شافته جارتهم أم حسن تكله:", "أبوك خلّى عندي رسالة إلك."], 7),
+              ("الرسالة", ["ما بيها فلوس ولا وصيّة.", "بس سطر بخط أبوه:", "يا علي، أتمنى أشوفك تكمّل مدرستك."], 7),
+              ("باب مفتوح", ["عمّه قرا الرسالة وسأل وين الشنطة.", "جابها من المخزن، وحطّها يم علي.", "ثاني يوم، مشى وياه للمدرسة."], 7),
+          ]
+          font = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+          display = ImageFont.truetype(font, 64)
+          body = ImageFont.truetype(font, 41)
+          small = ImageFont.truetype(font, 29)
+          timeline = []
+          for index, (title, lines, duration) in enumerate(scenes):
+              canvas = Image.new("RGB", (720, 1280), "#172528")
+              draw = ImageDraw.Draw(canvas)
+              draw.rectangle((42, 42, 678, 1238), outline="#c29a62", width=3)
+              draw.rounded_rectangle((245, 166, 475, 644), radius=105, fill="#34413e", outline="#9a774f", width=6)
+              draw.rectangle((258, 303, 462, 638), fill="#3d473e")
+              if index == 4:
+                  draw.polygon([(265, 312), (405, 348), (405, 630), (265, 638)], fill="#ac8052")
+              else:
+                  draw.ellipse((306, 322, 406, 422), outline="#ebc385", width=14)
+                  draw.line((356, 414, 356, 546, 409, 546), fill="#ebc385", width=14)
+              draw.text((360, 98), "آخر شاهد", font=small, fill="#f3d4a4", anchor="mm", direction="rtl")
+              draw.text((360, 751), title, font=display, fill="#f3d4a4", anchor="mm", direction="rtl")
+              for line_number, line in enumerate(lines):
+                  assert draw.textlength(line, font=body, direction="rtl") <= 610, line
+                  draw.text((360, 865 + 74 * line_number), line, font=body, fill="#f8f3ea", anchor="mm", direction="rtl")
+              image = f"scene-{index}.png"
+              canvas.save(image)
+              timeline.extend([f"file '{image}'", f"duration {duration}"])
+          Path("timeline.txt").write_text("\n".join(timeline + [f"file '{image}'", ""]))
+          PY
+          ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i timeline.txt \
+            -f lavfi -i 'aevalsrc=0.018*(sin(2*PI*110*t)+0.35*sin(2*PI*165*t))*(0.5+0.5*sin(2*PI*0.25*t)):s=48000' \
+            -t 32 -vf fps=30 -af 'afade=t=in:d=2,afade=t=out:st=29:d=3' \
+            -c:v libx264 -pix_fmt yuv420p -c:a aac -movflags +faststart output/akher-shahed-muftah-abuy.mp4
+      - name: Save the MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: akher-shahed-muftah-abuy
+          path: output/akher-shahed-muftah-abuy.mp4
+          if-no-files-found: error
